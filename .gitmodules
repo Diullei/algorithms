@@ -1,0 +1,3 @@
+[submodule "Ninety-Nine-Haskell-Problems"]
+	path = Ninety-Nine-Haskell-Problems
+	url = git@github.com:Diullei/Ninety-Nine-Haskell-Problems.git
