@@ -1,11 +1,10 @@
 import Test.QuickCheck
-import Test.QuickCheck.All
 
 {-
     # Evaluate Reverse Polish Notation
-    
+
     https://oj.leetcode.com/problems/evaluate-reverse-polish-notation/
-    
+
     Evaluate the value of an arithmetic expression in Reverse Polish Notation.
 
     Valid operators are +, -, *, /. Each operand may be an integer or another expression.
@@ -36,10 +35,10 @@ eval [] = (0, [])
 eval (x:xs) =
     if isOp x then
         do
-            let evaluated           = eval xs
-            let left                = fst evaluated
-            let secondEvaluated     = eval (snd evaluated)
-            let right               = fst secondEvaluated
+            let evaluated = eval xs
+            let right = fst evaluated
+            let secondEvaluated = eval (snd evaluated)
+            let left = fst secondEvaluated
             (applyOp x left right, snd secondEvaluated)
     else
         (read x, xs)
@@ -52,6 +51,7 @@ pnEval xs =
 {- TEST CASE     -}
 {- ------------- -}
 
+main :: IO()
 main = do
     {- isOp -}
     quickCheck (isOp "+" == True)
@@ -72,7 +72,7 @@ main = do
     quickCheck (eval (reverse ["1", "1", "-"]) == (0, []))
     quickCheck (eval (reverse ["3", "5", "*"]) == (15, []))
     quickCheck (eval (reverse ["15", "5", "/"]) == (3, []))
-    quickCheck (eval (reverse ["13", "5", "/"]) == (2.9, []))
+    quickCheck (eval (reverse ["13", "5", "/"]) == (2.6, []))
     {- pnEval -}
     quickCheck (pnEval ["1", "1", "+"] == 2)
     quickCheck (pnEval ["1", "5", "+"] == 6)
