@@ -41,9 +41,9 @@ let rec eval cs =
     | x::xs -> 
         if isOp x then
             let evaluated           = eval xs
-            let left                = fst evaluated
+            let right                = fst evaluated
             let secondEvaluated     = eval (snd evaluated)
-            let right               = fst secondEvaluated
+            let left               = fst secondEvaluated
             (applyOp x left right, snd secondEvaluated)
         else
             (Convert.ToDouble x, xs)
@@ -71,16 +71,16 @@ quickCheck (eval (List.rev ["1"; "1"; "+"]) = (2.0, []))
 quickCheck (eval (List.rev ["1"; "5"; "+"]) = (6.0, []))
 quickCheck (eval (List.rev ["1"; "1"; "-"]) = (0.0, []))
 quickCheck (eval (List.rev ["3"; "5"; "*"]) = (15.0, []))
-quickCheck (eval (List.rev ["15"; "5"; "/"]) = (3, []))
-quickCheck (eval (List.rev ["13"; "5"; "/"]) = (2.9, []))
+quickCheck (eval (List.rev ["15"; "5"; "/"]) = (3.0, []))
+quickCheck (eval (List.rev ["13"; "5"; "/"]) = (2.6, []))
 
 (* pnEval *)
 quickCheck (pnEval ["1"; "1"; "+"] = 2.0)
 quickCheck (pnEval ["1"; "5"; "+"] = 6.0)
 quickCheck (pnEval ["1"; "1"; "-"] = 0.0)
 quickCheck (pnEval ["3"; "5"; "*"] = 15.0)
-quickCheck (pnEval ["15"; "5"; "/"] = 3)
+quickCheck (pnEval ["15"; "5"; "/"] = 3.0)
 quickCheck (pnEval ["13"; "5"; "/"] = 2.6)
 quickCheck (pnEval ["4"; "13"; "5"; "*"; "+"] = 69.0)
 quickCheck (pnEval ["4"; "13"; "5"; "/"; "+"] = 6.6)
-quickCheck (pnEval ["2", "1", "+", "3", "*"] = 9.0)
+quickCheck (pnEval ["2"; "1"; "+"; "3"; "*"] = 9.0)
