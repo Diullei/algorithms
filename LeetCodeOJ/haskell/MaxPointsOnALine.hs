@@ -22,7 +22,7 @@ generatePermutations :: (Eq p, Fractional p) => [(p, p)] -> [[(p, p)]]
 generatePermutations ps =
     [pss | per <- permutations [0..(length ps - 1)], pss <- [indexToIten per ps]]
 
--- (head, last [meddle])
+-- (head, last [middle])
 pointToArrange :: (Eq p, Fractional p) => [(p, p)] -> ((p, p), (p, p), [(p, p)])
 pointToArrange ps =
     (head ps, last ps, (init (tail ps)))
