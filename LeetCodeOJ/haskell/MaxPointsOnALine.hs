@@ -1,5 +1,5 @@
-import Test.QuickCheck
-import Data.List (delete)
+import           Data.List       (delete)
+import           Test.QuickCheck
 
 {-
     Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
@@ -37,8 +37,11 @@ verifyPoints arrange = do
     p1:p2:[(x', y') | (x', y') <- points, a * x' + b == y']
 
 maxPoints :: (Eq p, Fractional p) => [(p, p)] -> Int
-maxPoints ps =
-    maximum [qt | per <- generatePermutations ps, qt <- [length (verifyPoints (pointToArrange per))]]
+maxPoints ps | length ps < 3 = 2
+             | otherwise = maximum [qt |
+                per <- generatePermutations ps,
+                qt <- [length (verifyPoints (pointToArrange per))]
+             ]
 
 {- ------------- -}
 {- TEST CASE     -}
@@ -64,3 +67,7 @@ main = do
     quickCheck (verifyPoints ((1, 1), (6, 6), [(2, 2), (3, 3), (5, 5), (7, 1)]) == [(1, 1), (6, 6), (2, 2), (3, 3), (5, 5)])
     {- maxPoints -}
     quickCheck (maxPoints [(1, 1), (2, 2), (3, 3), (5, 5), (7, 1), (6, 6)] == 5)
+    quickCheck (maxPoints [(1, 1), (2, 3)] == 2)
+    quickCheck (maxPoints [(1, 1), (1, 1), (2, 3)] == 3)
+    quickCheck (maxPoints [(1, 1), (1, 1), (2, 3), (3, 10)] == 3)
+    quickCheck (maxPoints [(1, 1), (1, 1), (2, 3), (3, 10), (3, 5)] == 4)
