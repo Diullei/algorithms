@@ -20,7 +20,7 @@ split' cs = [takeW] ++ split' (drop ((length takeW) + 1) cs)
 
 reverse' :: [Char] -> [Char]
 reverse' [] = []
-reverse' sss = take (length sss) (foldl (\a b -> b ++ " " ++ a) "" (split' sss))
+reverse' sss = foldl1 (\a b -> b ++ " " ++ a) (split' sss)
 
 {- ------------- -}
 {- TEST CASE     -}
