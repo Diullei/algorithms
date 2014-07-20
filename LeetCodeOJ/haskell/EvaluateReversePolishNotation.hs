@@ -1,4 +1,4 @@
-import Test.QuickCheck
+import           Test.QuickCheck
 
 {-
     # Evaluate Reverse Polish Notation
