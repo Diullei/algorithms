@@ -1,5 +1,6 @@
 import           Data.List       (delete)
 import           Test.QuickCheck
+import           System.Random
 
 {-
     Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
@@ -47,6 +48,15 @@ maxPoints ps | length ps < 3 = 2
 {- TEST CASE     -}
 {- ------------- -}
 
+rndPoints :: (Random p, Eq p, Fractional p) => Int -> [(p, p)]
+rndPoints size = zip x y
+  where
+    x = take size $ randomRs (25, 1000) (mkStdGen 1)
+    y = take size $ randomRs (25,  775) (mkStdGen 1)
+
+-- plotList []
+
+main :: IO ()
 main = do
     {- permutations -}
     quickCheck (permutations [0, 1, 2] == [[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]])
